@@ -77,7 +77,8 @@ nav>a:hover {
 .progress-bar {
     position: fixed;
     width: 100%;
-    height: 3px;
+    height: 4px;
+    z-index: 99;
 }
 
 .progress {
@@ -183,8 +184,8 @@ h2 {
 
 .novedad-video video {
     text-align: cover;
-    width: 100%;
-    height: 100%;
+    width: 750px;
+    height: 650px;
 }
 
 
@@ -204,11 +205,11 @@ main .sobre-nosotros {
 }
 
 .sobre-nosotros .contenido-textos {
-    width: 48%;
+    width: 50%;
 }
 
 .Contenedor-sobre-nosotros img {
-    width: 70%;
+    width: 80%;
     object-fit: cover;
 }
 
@@ -275,6 +276,7 @@ main .sobre-nosotros {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    transition: all 1s;
 }
 
 .hover-galeria img {
@@ -286,7 +288,7 @@ main .sobre-nosotros {
 }
 
 .imagen-port:hover .hover-galeria {
-    transform: scale(1);
+    transform: scale(1.4);
 }
 
 /* CLIENTS */
@@ -578,7 +580,7 @@ footer {
     }
 
     .Contenedor-sobre-nosotros img {
-        width: 90%;
+        width: 100%;
     }
 
     .Contenedor-sobre-nosotros .gallery-cell img {
@@ -599,6 +601,12 @@ footer {
 
     .imagen-sorpres {
         width: 90%;
+    }
+
+    .novedad-video video {
+        text-align: cover;
+        width: 95%;
+        height: 95%;
     }
 
     /* GALERIA */
@@ -708,6 +716,12 @@ footer {
         font-size: 20px;
     }
 
+    .novedad-video video {
+        text-align: cover;
+        width: 90%;
+        height: 90%;
+    }
+
 
     /* ABOUT US */
 
@@ -722,8 +736,13 @@ footer {
     }
 
     .sobre-nosotros .contenido-textos {
-        width: 95%;
+        width: 90%;
     }
+
+    .Contenedor-sobre-nosotros img {
+        width: 100%;
+    }
+
 
     .sorpresa {
         width: 95%;
