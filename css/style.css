@@ -184,8 +184,8 @@ h2 {
 
 .novedad-video video {
     text-align: cover;
-    width: 750px;
-    height: 650px;
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -605,8 +605,8 @@ footer {
 
     .novedad-video video {
         text-align: cover;
-        width: 95%;
-        height: 95%;
+        width: 100%;
+        height: 100%;
     }
 
     /* GALERIA */
@@ -718,8 +718,8 @@ footer {
 
     .novedad-video video {
         text-align: cover;
-        width: 90%;
-        height: 90%;
+        width: 95%;
+        height: 95%;
     }
 
 
