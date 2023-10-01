@@ -716,7 +716,11 @@ footer {
     }
 
     ol.flickity-page-dots{
-        position: fixed;
+        position:fixed;
+    }
+
+    .flickity-page-dots{
+        opacity: 100%;
     }
 
     /* GALERIA */
