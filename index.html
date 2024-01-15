@@ -27,18 +27,82 @@
         <div class="progress-bar">
             <div id="progress" class="progress"></div>
         </div>
-        <ul>
-            <li><a href="#noviembre" onclick="seleccionar()">fotos</a></li>
-            <li><a href="#novedad" onclick="seleccionar()">Novedades</a></li>
-            <li><a href="#acerca" onclick="seleccionar()">Acerca de</a></li>
-            <li><a href="#divertido" onclick="seleccionar()">Diversión</a></li>
-            <li><a href="#portafolio" onclick="seleccionar()">Portfolio</a></li>
-            <li><a href="#servicio" onclick="seleccionar()">Servicios</a></li>
-            <li><a href="#seguir" onclick="seleccionar()">Contacto</a></li>
-            <li><a href="#llegar" onclick="seleccionar()">Como LLegar</a></li>
-            <li><a href="#redes" onclick="seleccionar()">Redes Sociales</a></li>
-            <div id="cursor"></div>
-        </ul>
+        <nav>
+            <a href="#noviembre">
+                <span class="icon">
+                    <ion-icon name="image-outline"></ion-icon>
+                </span>
+                <span class="text">
+                    fotos
+                </span>
+            </a>
+            <a href="#noviembre">
+                <span class="icon">
+                    <ion-icon name="newspaper-outline"></ion-icon>
+                </span>
+                <span class="text">
+                    Novedades
+                </span>
+            </a>
+
+            <a href="#acerca">
+                <span class="icon">
+                    <ion-icon name="medal-outline"></ion-icon>
+                </span>
+                <span class="text">
+                    A cerca
+                </span>
+            </a>
+            <a href="#divertido">
+                <span class="icon">
+                    <ion-icon name="color-palette-outline"></ion-icon>
+                </span>
+                <span class="text">
+                    Diversión
+                </span>
+            </a>
+            <a href="#portafolio">
+                <span class="icon">
+                    <ion-icon name="grid-outline"></ion-icon>
+                </span>
+                <span class="text">
+                    Productos
+                </span>
+            </a>
+            <a href="#servicio">
+                <span class="icon">
+                    <ion-icon name="easel-outline"></ion-icon>
+                </span>
+                <span class="text">
+                    Servicios
+                </span>
+            </a>
+            <a href="#seguir">
+                <span class="icon">
+                    <ion-icon name="people-outline"></ion-icon>
+                </span>
+                <span class="text">
+                    Contacto
+                </span>
+            </a>
+            <a href="#llegar">
+                <span class="icon">
+                    <ion-icon name="location-outline"></ion-icon>
+                </span>
+                <span class="text">
+                    Como llegar
+                </span>
+            </a>
+            <a href="#redes">
+                <span class="icon">
+                    <ion-icon name="chatbubbles-outline"></ion-icon>
+                </span>
+                <span class="text">
+                    Redes sociales
+                </span>
+            </a>
+            <div id="indicator"></div>
+        </nav>
 
         <section id="" class="textos-header">
             <div class="headers-video">
@@ -46,8 +110,8 @@
             </div>
             <div class="headers-overly"></div>
             <div class="headers-content">
-                <!--<h1>Pequeños Picassos entretenimiento para ti</h1>
-                <h2>arte y diversión</h2>-->
+                <h1>Pequeños Picassos entretenimiento para ti</h1>
+                <h2>arte y diversión</h2>
             </div>
         </section>
         <div class="wave" style="height: 150px; overflow: hidden;"><svg viewBox="0 0 500 150" preserveAspectRatio="none"
@@ -430,10 +494,10 @@
         <h2 class="titulo-final"> &copy; 2022 Mauricio Sánchez Abella</h2>
     </footer>
 
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.pkgd.js"></script>
-    <script src="script.js"></script>
-
-</body>
+    <script src="script.js"></script></body>
 
 </html>
