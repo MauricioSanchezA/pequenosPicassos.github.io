@@ -837,13 +837,14 @@ footer {
         color: #10025f;
         text-decoration: none;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 18px;
+        font-size: 19px;
         font-weight: bold;
-        padding: 5px 10px;
+        padding: 5px 15px 5px 10px;
         transition: 0.2s ease color;
     }
-
-
+    span.icon {
+        margin: 0 auto;
+    }
     .Contenedor-sobre-nosotros {
         flex-direction: column;
         justify-content: center;
