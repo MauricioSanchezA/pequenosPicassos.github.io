@@ -821,25 +821,27 @@ footer {
     }
 
     nav {
+        height:max-content;
+        display: grid;
+        grid-template-columns: auto 4fr auto;
+        justify-content: space-between;
         align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        padding: 20px 0 0 10px;
-        margin: 5px 0 0 10px;
-        display: table-cell;
+        margin: 0px 125px;
+        padding: 1px;
+        top: 60%;
     }
 
     nav a {
         position: relative;
-        width: 33.333%;
-        display: table-cell;
+        width: 25%;
+        display: flex;
         text-align: center;
         color: #10025f;
         text-decoration: none;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-size: 19px;
         font-weight: bold;
-        padding: 5px 15px 5px 10px;
+        padding: 15px 105px 5px 15px;
         transition: 0.2s ease color;
     }
     span.icon {
@@ -980,11 +982,27 @@ footer {
         grid-template-columns: auto 3fr auto;
         justify-content: space-between;
         align-items: center;
-        margin: 3px 0px;
+        margin: 0px -2px;
         padding: 1px;
         top: 60%;
     }
 
+    nav a {
+        position: relative;
+        width: 33.333%;
+        display: table-cell;
+        text-align: center;
+        color: #10025f;
+        text-decoration: none;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 19px;
+        font-weight: bold;
+        padding: 5px 15px 5px 10px;
+        transition: 0.2s ease color;
+    }
+    span.icon {
+        margin: 0 auto;
+    }
 
     .textos-header .headers-content h1 {
         font-size: 35px;
