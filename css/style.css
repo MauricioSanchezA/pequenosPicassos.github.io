@@ -370,7 +370,7 @@ h2 {
 .carrusel_1-container{
     width: 170px;
     margin: auto;
-    perspective: 900px;
+    perspective: 700px;
     position: relative;
     margin-top: 50px;
 }
