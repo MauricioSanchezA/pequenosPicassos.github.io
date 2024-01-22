@@ -1066,7 +1066,7 @@ footer {
         grid-template-columns: auto 3fr auto;
         justify-content: space-between;
         align-items: center;
-        margin: 0px -2px;
+        margin: 0px 35px;
         padding: 1px;
         top: 60%;
     }
