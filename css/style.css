@@ -98,14 +98,13 @@ header {
 
 /* barra de navegacion */
 nav {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  left: 0;
-  width: 319px;
-  display: table;
-  margin: 0 auto;
-  transform: translateY(-50%);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 319px;
+    display: table;
+    margin: 30px auto 0 auto; /* ← margen superior de 30px */
 }
 
 nav a {
@@ -116,6 +115,7 @@ nav a {
   color: #10025f;
   text-decoration: none;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
   font-weight: bold;
   padding: 10px 20px;
   transition: 0.2s ease color;
@@ -301,17 +301,17 @@ nav a:nth-child(9):hover ~ #indicator {
 /* texto en el efecto olas */
 header .textos-header {
     display: flex;
-    height: 380px;
+    height: 100%;
     width: 100%;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     text-align: center;
-}
+  }
 
 /* tipo de letra en la ola */
 .textos-header h1 {
-    font-size: 50px;
+    font-size: 45px;
     color: #031e53;
 }
 
@@ -1060,15 +1060,33 @@ footer {
 }
 
 @media screen and (max-width:500px) {
+    .headers-content {
+        position: absolute;
+        top: 30%; /* Subir un poco el contenido (ajustable) */
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 90%; /* Opcional: para controlar el ancho en móviles */
+    }
+
+    .headers-content h1,
+    .headers-content h2 {
+        font-size: 18px; /* Ajusta según necesidad */
+        margin: 5px 0;
+    }
+    
     nav {
-        height:max-content;
+        height: max-content;
         display: grid;
         grid-template-columns: auto 3fr auto;
         justify-content: space-between;
         align-items: center;
-        margin: 0px 25px;
-        padding: 1px;
-        top: 60%;
+        margin: 0 auto; /* Centra horizontalmente */
+        padding: 5px;
+        position: absolute; /* Necesario para top/transform */
+        left: 55%;
+        top: 60%; /* Mueve un poco más abajo del centro (ajustable) */
+        transform: translate(-50%, -50%); /* Centra desde el medio */
     }
 
     nav a {
@@ -1079,7 +1097,7 @@ footer {
         color: #10025f;
         text-decoration: none;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 19px;
+        font-size: 10px;
         font-weight: bold;
         padding: 5px 15px 5px 10px;
         transition: 0.2s ease color;
