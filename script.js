@@ -122,3 +122,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
   reveals.forEach((el) => observer.observe(el));
 });
+
+// ===== MODAL CONTACTO =====
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('contactModal');
+  if (!modal) return;
+
+  const openButtons = document.querySelectorAll(
+    'a[href="#seguir"], a[href="#contacto"], .hero-button.secondary'
+  );
+
+  const closeButton = modal.querySelector('.modal-close');
+  const form = document.getElementById('contactForm');
+
+  const openModal = (e) => {
+    e.preventDefault();
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  openButtons.forEach((btn) => btn.addEventListener('click', openModal));
+  closeButton.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Envío por WhatsApp (modal)
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('message').value.trim();
+
+  if (!name || !message) {
+    alert('Por favor completa tu nombre y el mensaje');
+    return;
+  }
+
+  const phone = '573014894222';
+
+  const text = encodeURIComponent(
+    `Hola 👋, soy ${name}.\n` +
+    (email ? `Mi correo es: ${email}\n` : '') +
+    `\nMensaje:\n${message}`
+  );
+
+  window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+
+  form.reset();
+  closeModal();
+});
+});
+
