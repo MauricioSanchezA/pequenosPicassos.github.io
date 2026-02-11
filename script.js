@@ -47,45 +47,34 @@ function Unpdate() {
   requestAnimationFrame(Unpdate);
 }
 
-//Funcion que oculta o muestra el Menu
+// funcion menu responsive
+let MenuVisible = false;
+
 function MostrarOcultarMenu() {
+  const nav = document.getElementById('nav');
   if (MenuVisible) {
-    document.getElementById('nav').classList = '';
+    nav.classList.remove('responsive');
     MenuVisible = false;
   } else {
-    document.getElementById('nav').classList = 'responsive';
+    nav.classList.add('responsive');
     MenuVisible = true;
   }
 }
 
-//Funcion para cuando se selecciona el menu, no se muestre
-function seleccionar() {
-  document.getElementById('nav').classList = '';
-  MenuVisible = false;
-}
+// Footer animation con IntersectionObserver
+document.addEventListener('DOMContentLoaded', () => {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.15});
 
-//Detecto el Scroll para aplicar la animacion en la barra//
-window.onscroll = function () {
-  efectoHabilidades();
-};
-
-let text = document.querySelectorAll('ul li a').forEach((text) => {
-  text.innerHTML = text.innerText
-    .split('')
-    .map(
-      (letters, i) =>
-        `<span style="transition-delay:${i * 50}ms;">${letters}</span>`
-    )
-    .join('');
+  reveals.forEach(el => observer.observe(el));
 });
-
-let cursor = document.querySelector('#cursor');
-if (cursor) {
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.top = e.pageY + 'px';
-    cursor.style.left = e.pageX + 'px';
-  });
-}
 
 // Animaciones al hacer scroll (stagger)
 document.addEventListener('DOMContentLoaded', () => {
