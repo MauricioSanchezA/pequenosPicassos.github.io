@@ -1,565 +1,972 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pequeños Picassos</title>
-    <meta name="description"
-        content="Pequeños Picassos: arte y diversión para niños y familias. Talleres creativos, productos didácticos y actividades artísticas.">
-    <link rel="shortcut icon" href="img/favicon.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;700&family=Manrope:wght@300;400;600;700&display=swap"
-        rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pequeños Picassos · Arte y Diversión Infantil</title>
+  <meta name="description" content="Pequeños Picassos: arte y diversión para niños y familias. Talleres creativos, productos didácticos y actividades artísticas en Pereira.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --yellow:   #FFD23F;
+      --orange:   #F4622A;
+      --teal:     #0B7A75;
+      --teal-lt:  #14A89F;
+      --cream:    #FFFBF2;
+      --dark:     #1A1A2E;
+      --mid:      #4A4A6A;
+      --white:    #FFFFFF;
+      --radius:   18px;
+      --shadow:   0 8px 32px rgba(0,0,0,.12);
+      --ff-head:  'Fredoka One', cursive;
+      --ff-body:  'Nunito', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-body);
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== PROGRESS BAR ===== */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 4px;
+      background: linear-gradient(90deg, var(--yellow), var(--orange));
+      width: 0%; z-index: 9999;
+      transition: width .1s linear;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed; top: 4px; left: 0; right: 0;
+      z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--yellow);
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+    }
+
+    .navbar-brand {
+      font-family: var(--ff-head);
+      font-size: 1.4rem;
+      color: var(--orange);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .navbar-brand span { font-size: 1.7rem; }
+
+    .nav-links {
+      display: flex; gap: 1.5rem; list-style: none;
+    }
+    .nav-links a {
+      font-weight: 700; font-size: .85rem;
+      color: var(--mid);
+      transition: color .2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--orange); }
+
+    .nav-cta {
+      background: var(--orange); color: var(--white) !important;
+      padding: .45rem 1.1rem; border-radius: 50px;
+      transition: background .2s, transform .2s !important;
+    }
+    .nav-cta:hover { background: var(--teal) !important; transform: scale(1.05); }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 26px; height: 3px;
+      background: var(--dark); border-radius: 3px;
+      transition: .3s;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(145deg, #FFF8E7 0%, #FFF0D6 60%, #FFE4C4 100%);
+    }
+
+    .hero-blobs {
+      position: absolute; inset: 0; pointer-events: none;
+    }
+    .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(60px); opacity: .35;
+    }
+    .blob-1 { width: 400px; height: 400px; background: var(--yellow); top: -100px; right: -80px; }
+    .blob-2 { width: 300px; height: 300px; background: var(--orange); bottom: -80px; left: -60px; opacity: .25; }
+    .blob-3 { width: 200px; height: 200px; background: var(--teal-lt); top: 40%; left: 30%; opacity: .2; }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+      gap: 3rem; max-width: 1100px; width: 90%; margin: 0 auto;
+      padding: 120px 0 80px;
+    }
+
+    .hero-text .tag {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--yellow); color: var(--dark);
+      font-weight: 800; font-size: .8rem;
+      padding: .35rem .9rem; border-radius: 50px; margin-bottom: 1.2rem;
+      letter-spacing: .05em; text-transform: uppercase;
+    }
+
+    .hero-text h1 {
+      font-family: var(--ff-head);
+      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      line-height: 1.15;
+      color: var(--dark);
+      margin-bottom: 1rem;
+    }
+    .hero-text h1 em {
+      font-style: normal; color: var(--orange);
+    }
+
+    .hero-text p {
+      font-size: 1.05rem; color: var(--mid);
+      line-height: 1.75; margin-bottom: 1.8rem;
+    }
+
+    .hero-pills {
+      display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2rem;
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: var(--white); border: 2px solid var(--yellow);
+      padding: .35rem .9rem; border-radius: 50px;
+      font-size: .82rem; font-weight: 700; color: var(--dark);
+    }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--orange); color: var(--white);
+      font-family: var(--ff-body); font-weight: 800; font-size: 1rem;
+      padding: .8rem 2rem; border-radius: 50px; border: none;
+      cursor: pointer; transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(244,98,42,.35);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(244,98,42,.45); }
+
+    .btn-secondary {
+      background: transparent; color: var(--teal);
+      font-family: var(--ff-body); font-weight: 800; font-size: 1rem;
+      padding: .8rem 2rem; border-radius: 50px;
+      border: 2px solid var(--teal);
+      cursor: pointer; transition: background .2s, color .2s;
+    }
+    .btn-secondary:hover { background: var(--teal); color: var(--white); }
+
+    .hero-visual {
+      position: relative; display: flex; justify-content: center; align-items: center;
+    }
+    .hero-video-wrap {
+      position: relative;
+      width: min(420px, 90vw);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.2);
+      border: 4px solid var(--white);
+    }
+    .hero-video-wrap video { width: 100%; display: block; }
+
+    .hero-badge {
+      position: absolute; bottom: -18px; left: -18px;
+      background: var(--teal); color: var(--white);
+      font-family: var(--ff-head); font-size: 1rem;
+      padding: .7rem 1.2rem; border-radius: 16px;
+      box-shadow: var(--shadow);
+      animation: bob 3s ease-in-out infinite;
+    }
+    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+    .hero-badge2 {
+      position: absolute; top: -14px; right: -14px;
+      background: var(--yellow); color: var(--dark);
+      font-family: var(--ff-head); font-size: .9rem;
+      padding: .6rem 1rem; border-radius: 14px;
+      box-shadow: var(--shadow);
+      animation: bob 3.5s ease-in-out infinite .5s;
+    }
+
+    /* ===== WAVE ===== */
+    .wave-divider svg { display: block; }
+
+    /* ===== SECTION SHARED ===== */
+    section { padding: 80px 5%; }
+
+    .section-label {
+      display: inline-block;
+      font-size: .75rem; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: .5rem;
+    }
+    .section-title {
+      font-family: var(--ff-head);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      color: var(--dark);
+      margin-bottom: .75rem;
+    }
+    .section-sub {
+      color: var(--mid); font-size: 1rem; line-height: 1.7;
+      max-width: 560px;
+    }
+    .section-head { margin-bottom: 2.5rem; }
+
+    /* ===== BENEFITS ===== */
+    .benefits { background: var(--dark); }
+    .benefits .section-title,
+    .benefits .section-label { color: var(--yellow); }
+    .benefits .section-sub { color: rgba(255,255,255,.65); }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+
+    .benefit-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: transform .3s, background .3s;
+    }
+    .benefit-card:hover { transform: translateY(-6px); background: rgba(255,255,255,.1); }
+
+    .benefit-icon {
+      width: 64px; height: 64px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; margin: 0 auto 1.2rem;
+    }
+    .benefit-card:nth-child(1) .benefit-icon { background: rgba(255,210,63,.2); }
+    .benefit-card:nth-child(2) .benefit-icon { background: rgba(244,98,42,.2); }
+    .benefit-card:nth-child(3) .benefit-icon { background: rgba(20,168,159,.2); }
+
+    .benefit-card h3 { color: var(--white); font-size: 1.1rem; margin-bottom: .5rem; }
+    .benefit-card p { color: rgba(255,255,255,.6); font-size: .9rem; line-height: 1.65; }
+
+    /* ===== ABOUT ===== */
+    .about { background: var(--white); }
+    .about-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .about-img {
+      border-radius: 24px; overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .about-img img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+    .about-img-badge {
+      position: absolute; bottom: 16px; right: 16px;
+      background: var(--orange); color: var(--white);
+      font-family: var(--ff-head); font-size: .9rem;
+      padding: .5rem 1rem; border-radius: 12px;
+    }
+
+    .about-steps { display: flex; flex-direction: column; gap: 1.5rem; }
+    .step {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.2rem; border-radius: var(--radius);
+      background: var(--cream);
+      border-left: 4px solid var(--yellow);
+      transition: border-color .3s;
+    }
+    .step:hover { border-color: var(--orange); }
+    .step-num {
+      min-width: 36px; height: 36px; border-radius: 10px;
+      background: var(--orange); color: var(--white);
+      font-family: var(--ff-head); font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step h4 { font-size: 1rem; margin-bottom: .25rem; }
+    .step p { font-size: .88rem; color: var(--mid); line-height: 1.6; }
+
+    /* ===== GALLERY ===== */
+    .gallery { background: var(--cream); }
+    .gallery-grid {
+      max-width: 1100px; margin: 0 auto;
+      columns: 3; column-gap: 1rem;
+    }
+    .gallery-item {
+      break-inside: avoid; margin-bottom: 1rem;
+      border-radius: 16px; overflow: hidden;
+      position: relative; cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%; display: block;
+      transition: transform .4s;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(11,122,117,.75) 0%, transparent 60%);
+      opacity: 0; transition: opacity .3s;
+      display: flex; align-items: flex-end; padding: 1rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span {
+      color: var(--white); font-weight: 700; font-size: .9rem;
+    }
+
+    /* ===== PRODUCTS ===== */
+    .products { background: var(--white); }
+    .products-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+    .product-card {
+      border-radius: var(--radius); overflow: hidden;
+      background: var(--cream);
+      border: 2px solid transparent;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      border-color: var(--orange);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(244,98,42,.2);
+    }
+    .product-card img {
+      width: 100%; aspect-ratio: 1; object-fit: cover;
+    }
+    .product-card-body { padding: .8rem 1rem; }
+    .product-card-body p { font-weight: 700; font-size: .9rem; color: var(--dark); }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials { background: linear-gradient(135deg, #FFF8E7, #FFE8D0); }
+    .testi-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    }
+    .testi-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .testi-card::before {
+      content: '"';
+      font-family: var(--ff-head); font-size: 5rem; line-height: 1;
+      color: var(--yellow); opacity: .6;
+      position: absolute; top: .5rem; left: 1.2rem;
+    }
+    .testi-card p {
+      font-size: .92rem; line-height: 1.7;
+      color: var(--mid); margin-bottom: 1.2rem;
+      position: relative; z-index: 1;
+    }
+    .testi-author { display: flex; align-items: center; gap: .75rem; }
+    .testi-author img {
+      width: 46px; height: 46px; border-radius: 50%; object-fit: cover;
+      border: 3px solid var(--yellow);
+    }
+    .testi-author strong { font-size: .95rem; }
+    .testi-author span { font-size: .8rem; color: var(--teal); font-weight: 600; }
+
+    /* ===== SERVICES ===== */
+    .services { background: var(--teal); }
+    .services .section-title,
+    .services .section-label { color: var(--yellow); }
+    .services .section-sub { color: rgba(255,255,255,.7); }
+
+    .services-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform .3s;
+    }
+    .service-card:hover { transform: translateY(-6px); }
+    .service-card img {
+      width: 100%; height: 180px; object-fit: cover;
+    }
+    .service-card-body { padding: 1.4rem; }
+    .service-card h3 { color: var(--white); font-size: 1.05rem; margin-bottom: .5rem; }
+    .service-card p { color: rgba(255,255,255,.7); font-size: .88rem; line-height: 1.65; }
+
+    /* ===== CONTACT ===== */
+    .contact { background: var(--cream); }
+    .contact-inner {
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+    }
+    .contact-info h3 {
+      font-family: var(--ff-head); font-size: 1.6rem; margin-bottom: 1.2rem;
+      color: var(--dark);
+    }
+    .contact-item {
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: 1rem; font-size: .95rem;
+    }
+    .contact-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--orange); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .social-links { display: flex; gap: .75rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .social-btn {
+      display: flex; align-items: center; gap: .5rem;
+      padding: .55rem 1.2rem; border-radius: 50px;
+      font-weight: 700; font-size: .85rem;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .social-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.15); }
+    .social-fb  { background: #1877F2; color: var(--white); }
+    .social-ig  { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: var(--white); }
+    .social-yt  { background: #FF0000; color: var(--white); }
+    .social-wa  { background: #25D366; color: var(--white); }
+
+    .contact-map {
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .contact-map iframe { width: 100%; height: 320px; border: 0; display: block; }
+    .map-caption {
+      background: var(--white);
+      padding: 1rem 1.2rem;
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .88rem; color: var(--mid);
+    }
+    .map-caption i { color: var(--orange); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,.75);
+      padding: 3rem 5% 1.5rem;
+    }
+    .footer-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 1.5rem;
+    }
+    .footer-brand h3 {
+      font-family: var(--ff-head); font-size: 1.5rem;
+      color: var(--yellow); margin-bottom: .5rem;
+    }
+    .footer-brand p { font-size: .88rem; line-height: 1.7; }
+    .footer-col h4 { color: var(--white); margin-bottom: .8rem; font-size: .9rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: .5rem; font-size: .85rem; }
+    .footer-col a { color: rgba(255,255,255,.65); transition: color .2s; }
+    .footer-col a:hover { color: var(--yellow); }
+    .footer-wa {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: #25D366; color: var(--white);
+      padding: .65rem 1.4rem; border-radius: 50px;
+      font-weight: 700; font-size: .9rem; margin-top: .5rem;
+      transition: transform .2s;
+    }
+    .footer-wa:hover { transform: scale(1.05); }
+    .footer-bottom {
+      max-width: 1100px; margin: 0 auto;
+      text-align: center; font-size: .82rem; color: rgba(255,255,255,.4);
+    }
+
+    /* ===== FLOAT WHATSAPP ===== */
+    .float-wa {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      background: #25D366; color: var(--white);
+      width: 58px; height: 58px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 6px 24px rgba(37,211,102,.45);
+      transition: transform .3s, box-shadow .3s;
+      animation: pulse-wa 2.5s infinite;
+    }
+    .float-wa:hover { transform: scale(1.12); }
+    @keyframes pulse-wa {
+      0%,100%{ box-shadow: 0 6px 24px rgba(37,211,102,.45); }
+      50%{ box-shadow: 0 6px 36px rgba(37,211,102,.75); }
+    }
+
+    /* ===== REVEAL ANIMATION ===== */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== MOBILE MENU ===== */
+    @media (max-width: 900px) {
+      .nav-links {
+        position: fixed; top: 68px; left: 0; right: 0;
+        background: var(--white);
+        flex-direction: column; gap: 0;
+        max-height: 0; overflow: hidden;
+        transition: max-height .35s ease;
+        border-bottom: 2px solid var(--yellow);
+      }
+      .nav-links.open { max-height: 600px; }
+      .nav-links li { border-top: 1px solid #f0f0f0; }
+      .nav-links a { display: block; padding: .9rem 5%; }
+      .hamburger { display: flex; }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; padding: 100px 0 60px; text-align: center; }
+      .hero-pills { justify-content: center; }
+      .hero-btns { justify-content: center; }
+      .hero-visual { order: -1; }
+      .hero-badge { bottom: -10px; left: 10px; font-size: .85rem; }
+      .hero-badge2 { top: -10px; right: 10px; font-size: .8rem; }
+      .about-inner { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      section { padding: 60px 4%; }
+      .gallery-grid { columns: 2; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
 </head>
-
 <body>
 
-    <header>
-        <div class="progress-bar">
-            <div id="progress" class="progress"></div>
-        </div>
-        <nav class="main-nav" aria-label="Navegación principal">
-            <a href="#noviembre">
-                <span class="icon">
-                    <ion-icon name="image-outline"></ion-icon>
-                </span>
-                <span class="text">
-                    Fotos
-                </span>
-            </a>
-            <a href="#novedad">
-                <span class="icon">
-                    <ion-icon name="newspaper-outline"></ion-icon>
-                </span>
-                <span class="text">
-                    Novedades
-                </span>
-            </a>
+<!-- Progress Bar -->
+<div id="progress-bar"></div>
 
-            <a href="#acerca">
-                <span class="icon">
-                    <ion-icon name="medal-outline"></ion-icon>
-                </span>
-                <span class="text">
-                    Acerca
-                </span>
-            </a>
-            <a href="#divertido">
-                <span class="icon">
-                    <ion-icon name="color-palette-outline"></ion-icon>
-                </span>
-                <span class="text">
-                    Diversión
-                </span>
-            </a>
-            <a href="#portafolio">
-                <span class="icon">
-                    <ion-icon name="grid-outline"></ion-icon>
-                </span>
-                <span class="text">
-                    Productos
-                </span>
-            </a>
-            <a href="#servicio">
-                <span class="icon">
-                    <ion-icon name="easel-outline"></ion-icon>
-                </span>
-                <span class="text">
-                    Servicios
-                </span>
-            </a>
-            <a href="#seguir">
-                <span class="icon">
-                    <ion-icon name="people-outline"></ion-icon>
-                </span>
-                <span class="text">
-                    Contacto
-                </span>
-            </a>
-            <a href="#llegar">
-                <span class="icon">
-                    <ion-icon name="location-outline"></ion-icon>
-                </span>
-                <span class="text">
-                    Cómo llegar
-                </span>
-            </a>
-            <a href="#redes">
-                <span class="icon">
-                    <ion-icon name="chatbubbles-outline"></ion-icon>
-                </span>
-                <span class="text">
-                    Redes sociales
-                </span>
-            </a>
-            <div id="indicator"></div>
-        </nav>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="#" class="navbar-brand">
+    <span>🎨</span> Pequeños Picassos
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#gallery">Fotos</a></li>
+    <li><a href="#about">Acerca</a></li>
+    <li><a href="#products">Productos</a></li>
+    <li><a href="#services">Servicios</a></li>
+    <li><a href="#contact" class="nav-cta">Contacto</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-        <section class="textos-header">
-            <div class="headers-video">
-                <video src="video/pexels-artem.mp4" autoplay muted loop playsinline></video>
-            </div>
-            <div class="headers-overly"></div>
-            <div class="headers-content stagger">
-                <h1 class="reveal">Pequeños Picassos: arte y diversión para compartir</h1>
-                <h2 class="reveal">Creatividad, aprendizaje y entretenimiento para toda la familia</h2>
-                <ul class="hero-benefits reveal" aria-label="Beneficios principales">
-                    <li>Motricidad fina</li>
-                    <li>Creatividad guiada</li>
-                    <li>Tiempo en familia</li>
-                </ul>
-                <div class="hero-actions reveal">
-                    <a class="hero-button" href="#portafolio">Ver productos</a>
-                    <a class="hero-button secondary" href="#seguir">Contacto</a>
-                </div>
-            </div>
-        </section>
-        <div class="wave" style="height: 150px; overflow: hidden;"><svg viewBox="0 0 500 150" preserveAspectRatio="none"
-                style="height: 100%; width: 100%;">
-                <path d="M0.00,49.98 C224.32,164.31 348.47,-57.70 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
-                    style="stroke: none; fill: #ffffff;"></path>
-            </svg></div>
-    </header>
-
-    <h2 id="noviembre" class="titulo reveal">¡Ven e imagina el arte con nosotros!</h2>
-    <main>
-
-        <section class="novedades stagger">
-            <h2 id="novedad" class="titulo reveal"><br>Novedades para ti</h2>
-            <p class="section-intro reveal">Mira lo más reciente en talleres, actividades y creaciones de nuestros pequeños.</p>
-            <!-- <div class="novedad-video">
-                <video src="/video/VID-20220130-WA0006.mp4" autoplay muted loop></video>
-            </div>-->
-
-            <div class="novedad-video reveal">
-                <video src="video/Depor.mp4" controls preload="metadata" playsinline></video>
-            </div>
-            <div class="novedad-video reveal">
-                <video src="video/picasso_hoy.mp4" autoplay muted loop playsinline></video>
-            </div>
-            <div class="novedad-video reveal">
-                <video src="video/VID-20220213-2.mp4" autoplay muted loop playsinline></video>
-            </div>
-            <div class="novedad-video reveal">
-                <video src="video/bartolito.mp4" controls preload="metadata" playsinline></video>
-            </div>
-            <div class="novedad-video reveal">
-                <video src="video/manualidad.mp4" autoplay muted loop playsinline></video>
-            </div>
-        </section>
-
-        <section class="contenedor sobre-nosotros">
-            <h2 id="acerca" class="titulo reveal">Acerca de nosotros</h2>
-            <div class="Contenedor-sobre-nosotros">
-                <img src="img/Slider (22).jpg" alt="Taller creativo con niños" class="imagen-about-us reveal"
-                    loading="lazy">
-                <div class="contenido-textos reveal">
-                    <h3><span>1</span>Productos pensados</h3>
-                    <p>Nuestros productos son pensados en desarrollar las habilidades motrices y mentales de los
-                        pequeños, estimulando su intelecto, su coordinación e iniciativa; también son productos que
-                        disfrutan los padres.
-                    </p>
-
-                    <h3><span>2</span>Los mejores productos</h3>
-                    <p>Son productos en materiales resistentes y que no representan peligro para los pequeños, no
-                        obstante,
-                        el cuidado de nuestros niños es fundamental en todo momento; su compañía en la etapa de
-                        entretenimiento es importante.
-                    </p>
-                    <p class="micro-note">Acompañamos cada actividad con guía y recomendaciones según la edad.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="benefits-detail">
-            <div class="contenedor">
-                <h2 class="titulo reveal">¿Qué desarrollamos con el arte?</h2>
-                <p class="section-intro reveal">Tres pilares que fortalecemos en cada actividad.</p>
-                <div class="benefit-cards stagger">
-                    <article class="benefit-card reveal">
-                        <div class="benefit-illustration" aria-hidden="true">
-                            <svg viewBox="0 0 120 120" role="presentation">
-                                <defs>
-                                    <linearGradient id="grad-hand" x1="0" x2="1">
-                                        <stop offset="0%" stop-color="#f7b42c" />
-                                        <stop offset="100%" stop-color="#f05a28" />
-                                    </linearGradient>
-                                </defs>
-                                <circle cx="60" cy="60" r="46" fill="url(#grad-hand)" opacity="0.25"></circle>
-                                <path d="M48 70c2-10 6-24 10-24 3 0 2 6 2 10 1-5 4-14 7-14 3 0 2 6 1 12 2-4 5-10 8-9 3 1 1 8-1 13 3-2 6-3 7-1 1 2-1 6-4 9-4 5-8 10-14 13-6 3-12 3-18-1-3-2-5-4-6-8z"
-                                    fill="#084b59"></path>
-                            </svg>
-                        </div>
-                        <h3>Motricidad fina</h3>
-                        <p>Actividades con recorte, modelado y pintura que afinan el control de manos y dedos.</p>
-                    </article>
-                    <article class="benefit-card reveal">
-                        <div class="benefit-illustration" aria-hidden="true">
-                            <svg viewBox="0 0 120 120" role="presentation">
-                                <defs>
-                                    <linearGradient id="grad-bulb" x1="0" x2="1">
-                                        <stop offset="0%" stop-color="#0e6e7f" />
-                                        <stop offset="100%" stop-color="#084b59" />
-                                    </linearGradient>
-                                </defs>
-                                <circle cx="60" cy="60" r="46" fill="url(#grad-bulb)" opacity="0.2"></circle>
-                                <path d="M60 28c12 0 22 9 22 21 0 8-4 14-10 18-2 1-3 4-3 7H51c0-3-1-6-3-7-6-4-10-10-10-18 0-12 10-21 22-21z"
-                                    fill="#f7b42c"></path>
-                                <rect x="50" y="76" width="20" height="10" rx="5" fill="#084b59"></rect>
-                            </svg>
-                        </div>
-                        <h3>Creatividad guiada</h3>
-                        <p>Retos simples y acompañados para imaginar, resolver y expresar ideas propias.</p>
-                    </article>
-                    <article class="benefit-card reveal">
-                        <div class="benefit-illustration" aria-hidden="true">
-                            <svg viewBox="0 0 120 120" role="presentation">
-                                <defs>
-                                    <linearGradient id="grad-heart" x1="0" x2="1">
-                                        <stop offset="0%" stop-color="#f05a28" />
-                                        <stop offset="100%" stop-color="#f7b42c" />
-                                    </linearGradient>
-                                </defs>
-                                <circle cx="60" cy="60" r="46" fill="url(#grad-heart)" opacity="0.18"></circle>
-                                <path d="M60 82c-16-12-24-20-24-30 0-6 5-11 11-11 5 0 9 3 13 8 4-5 8-8 13-8 6 0 11 5 11 11 0 10-8 18-24 30z"
-                                    fill="#084b59"></path>
-                            </svg>
-                        </div>
-                        <h3>Tiempo en familia</h3>
-                        <p>Proyectos para compartir en casa y fortalecer la comunicación con los padres.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="contenedor">
-            <h2 id="divertido" class="titulo reveal">Arte y diversión para ti</h2>
-            <p class="section-intro reveal">Explora momentos reales de juego, pintura y creatividad.</p>
-            <div class="captioned-gallery reveal">
-                <figure class="slider">
-                    <figure>
-                        <img src="img/glid_5.jpeg" alt="Niños creando arte" loading="lazy">
-                        <figcaption>Pequeños Picassos</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="img/glid_13.jpeg" alt="Actividad creativa" loading="lazy">
-                        <figcaption>Entretenimiento</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="img/glid_12.jpeg" alt="Pintura en taller" loading="lazy">
-                        <figcaption>Arte</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="img/glid_11.jpeg" alt="Diversión creativa" loading="lazy">
-                        <figcaption>Diversión<i class="cc cc-nd"></i></figcaption>
-                    </figure>
-                    <figure>
-                        <img src="img/glid_3.jpeg" alt="Pintura y colores" loading="lazy">
-                        <figcaption>Pintura</figcaption>
-                    </figure>
-                </figure>
-            </div>
-
-        </section>
-        <section class="contenedor">
-            <div class="captioned-gallery reveal">
-                <figure class="slider_1">
-                    <figure>
-                        <img src="img/glid_1.jpeg" alt="Arte en familia" loading="lazy">
-                        <figcaption>Pequeños Picassos</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="img/glid_4.jpeg" alt="Juego creativo" loading="lazy">
-                        <figcaption>Entretenimiento</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="img/glid_9.jpeg" alt="Taller de arte" loading="lazy">
-                        <figcaption>Arte</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="img/glid_10.jpeg" alt="Actividad divertida" loading="lazy">
-                        <figcaption>Diversión<i class="cc cc-nd"></i></figcaption>
-                    </figure>
-                    <figure>
-                        <img src="img/glid_7.jpeg" alt="Pintura creativa" loading="lazy">
-                        <figcaption>Pintura</figcaption>
-                    </figure>
-                </figure>
-            </div>
-        </section>
-        
-        <section class="portafolio">
-            <div class="contenedor">
-                <h2 id="portafolio" class="titulo reveal">Portafolio</h2>
-                <p class="section-intro reveal">Productos seguros, resistentes y pensados para desarrollar habilidades.</p>
-                <div class="galeria-port stagger">
-                    <div class="imagen-port reveal">
-                        <img src="img/marvel.jpg" alt="Figuras Marvel" loading="lazy">
-                        <div class="hover-galeria">
-                            <p>Figuras Marvel</p>
-                        </div>
-                    </div>
-                    <div class="imagen-port reveal">
-                        <img src="img/hombre_arana.jpg" alt="Figuras Hombre Araña" loading="lazy">
-                        <div class="hover-galeria">
-                            <p>Figuras Hombre Araña</p>
-                        </div>
-                    </div>
-                    <div class="imagen-port reveal">
-                        <img src="img/PLASTILINA2.jpg" alt="Plastilina" loading="lazy">
-                        <div class="hover-galeria">
-                            <p>Plastilina</p>
-                        </div>
-                    </div>
-                    <div class="imagen-port reveal">
-                        <img src="img/RELOJ_1.jpg" alt="Reloj didáctico" loading="lazy">
-                        <div class="hover-galeria">
-                            <p>Reloj</p>
-                        </div>
-                    </div>
-                    <div class="imagen-port reveal">
-                        <img src="img/huevos.jpg" alt="Huevo sorpresa" loading="lazy">
-                        <div class="hover-galeria">
-                            <p>Huevo Sorpresa</p>
-                        </div>
-                    </div>
-                    <div class="imagen-port reveal">
-                        <img src="img/PINTURA ACUARELA.jpg" alt="Pintura en acuarela" loading="lazy">
-                        <div class="hover-galeria">
-                            <p>Pintura en acuarela</p>
-                        </div>
-                    </div>
-                    <div class="imagen-port reveal">
-                        <img src="img/PRODUCTOS (2).jpg" alt="Dominó" loading="lazy">
-                        <div class="hover-galeria">
-                            <p>Dominó</p>
-                        </div>
-                    </div>
-                    <div class="imagen-port reveal">
-                        <img src="img/Slider (30).jpeg" alt="Figuras de plastilina" loading="lazy">
-                        <div class="hover-galeria">
-                            <p>Figuras Plastilina</p>
-                        </div>
-                    </div>
-                    <div class="imagen-port reveal">
-                        <img src="img/SLIME.jpeg" alt="Slime" loading="lazy">
-                        <div class="hover-galeria">
-                            <p>Slime</p>
-                        </div>
-                    </div>
-                    <div class="imagen-port reveal">
-                        <img src="img/PROYECTORES PARA DIBUJAR.jpg" alt="Proyector para dibujar" loading="lazy">
-                        <div class="hover-galeria">
-                            <p>Proyector</p>
-                        </div>
-                    </div>
-                    <div class="imagen-port reveal">
-                        <img src="img/TETRIS JUEGO DIDACTICO.jpg" alt="Tetris didáctico" loading="lazy">
-                        <div class="hover-galeria">
-                            <p>Tetris Didáctico</p>
-                        </div>
-                    </div>
-                    <div class="imagen-port reveal">
-                        <img src="img/TABLETA MAGICA PARA PINTAR Y APRENDER.jpg" alt="Tableta mágica" loading="lazy">
-                        <div class="hover-galeria">
-                            <p>Tableta mágica</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="cliente-contenedor">
-            <h2 class="titulo reveal">Nuestros clientes</h2>
-            <p class="section-intro reveal">Historias reales que inspiran a seguir creando.</p>
-            <div class="cards stagger">
-                <div class="card reveal">
-                    <img src="img/CLIENTE1.jpg" alt="Cliente Angélica" loading="lazy">
-                    <div class="contenido-texto-card">
-                        <h4>Angélica</h4>
-                        <p>Desarrollo de las capacidades creativas en los niños, de motricidad y cognitivas de los
-                            diferentes colores para lograr una armonía en el dibujo, también desarrollar destrezas
-                            para combinar estilos.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="card reveal">
-                    <img src="img/CLIENTE2.jpg" alt="Cliente Samira" loading="lazy">
-                    <div class="contenido-texto-card">
-                        <h4>Samira</h4>
-                        <p>Integrar conocimientos y técnicas que permitan a los niños, interactuar con otros elementos
-                            disponibles en el medio. Al estar en contacto con más niños, permite la interacción con los
-                            demás logrando así una interrelación con sus compañeros.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="about-service">
-            <div class="contenedor">
-                <h2 id="servicio" class="titulo reveal">Nuestros servicios</h2>
-                <p class="section-intro reveal">Actividades diseñadas para aprender jugando.</p>
-                <div class="servicio-cont stagger">
-                    <div class="servicio-ind reveal">
-                        <img src="img/imagen_20.png" alt="Actividades de entretenimiento" loading="lazy">
-                        <h3>Entretenimiento</h3>
-                        <p>Brindamos una opción de entretenimiento, que permite desarrollar en los niños cualidades
-                            artísticas como lo son la pintura y el dibujo.
-                        </p>
-                    </div>
-                    <div class="servicio-ind reveal">
-                        <img src="img/ROMPECABEZAS-JUEGOS DIDACTICOS.jpg" alt="Juegos didácticos" loading="lazy">
-                        <h3>Productos Didácticos</h3>
-                        <p>Más que juguetes son productos que motivan la mente y la destreza motriz, ya que estos juegos
-                            requieren de razonamiento y algunos más de coordinación en su elaboración.
-                        </p>
-                    </div>
-                    <div class="servicio-ind reveal">
-                        <img src="img/familiar_1.jpg" alt="Participación familiar" loading="lazy">
-                        <h3>Participación familiar</h3>
-                        <p>Para los pequeños, es importante contar con el apoyo de sus padres en las actividades que
-                            realizan; por ello incentivamos actividades donde los padres puedan involucrarse
-                            directamente con los niños, así fortalecemos la confianza de ellos.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="Follow-me">
-            <div id="redes" class="contenedor-redes">
-                <img src="img/Logo.png" alt="Logo de Pequeños Picassos" class="imagen-about-us reveal" loading="lazy">
-                <h2 class="titulo reveal">Contacto</h2>
-                <h3 id="seguir" class="titulo reveal">Visítanos en:</h3>
-                <div class="wrapper">
-                    <a class="icon facebook"
-                        href="https://www.facebook.com/Peque%C3%B1os-Picassos-Pereira-108755635014231" target="_blank"
-                        rel="noopener noreferrer" aria-label="Facebook">
-                        <div class="tooltip">Facebook</div>
-                        <span><i class="fab fa-facebook-f"></i></span>
-                    </a>
-                    <a class="icon instagram" href="https://www.instagram.com/pequenospicassosofficial" target="_blank"
-                        rel="noopener noreferrer" aria-label="Instagram">
-                        <div class="tooltip">Instagram</div>
-                        <span><i class="fab fa-instagram"></i></span>
-                    </a>
-                    <a class="icon youtube" href="https://youtube.com/shorts/wQZMjwd7fZw?feature=share"
-                        target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                        <div class="tooltip">YouTube</div>
-                        <span><i class="fab fa-youtube"></i></span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section class="ubica">
-            <div class="contenedor-ub">
-                <h2 id="llegar" class="titulo reveal">Nos encuentras en:</h2>
-                <p class="section-intro reveal">Estamos en el Centro Comercial Arboleda, piso 4.</p>
-                <div class="imagen reveal">
-                    <iframe class="two-columns"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d993.9459650489804!2d-75.68395649173092!3d4.8071349390394795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e38873c119cbc4b%3A0x71bb3a3f6879aed3!2sCentro%20Comercial%20Parque%20Arboleda!5e0!3m2!1ses-419!2sco!4v1663537195923!5m2!1ses-419!2sco"
-                        width="450" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                    <img class="two-columns" src="img/UBICACIONPP_1.jpg" width="550" height="450"
-                        alt="Ubicación Pequeños Picassos" loading="lazy">
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- MODAL CONTACTO -->
-    <div id="contactModal" class="modal-overlay" aria-hidden="true">
-        <div class="modal">
-            <button class="modal-close" aria-label="Cerrar">&times;</button>
-
-            <h2>¿Hablamos?</h2>
-                <p class="modal-intro">
-                Escríbenos por WhatsApp y te responderemos lo antes posible 💬
-                </p>
-
-            <form id="contactForm">
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" id="name" required placeholder="Tu nombre">
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Correo electrónico</label>
-                    <input type="email" id="email" required placeholder="tucorreo@email.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Mensaje</label>
-                    <textarea id="message" rows="4" required
-                        placeholder="Cuéntanos en qué podemos ayudarte"></textarea>
-                </div>
-
-                <button type="submit" class="hero-button whatsapp-btn">
-                <i class="fab fa-whatsapp"></i>
-                Enviar por WhatsApp
-                </button>
-            </form>
-        </div>
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-text reveal">
+      <div class="tag">🎨 Arte Infantil · Pereira</div>
+      <h1>Arte y diversión para <em>compartir en familia</em></h1>
+      <p>Talleres creativos, productos didácticos y actividades artísticas que desarrollan las habilidades de tus pequeños.</p>
+      <div class="hero-pills">
+        <span class="pill">✋ Motricidad fina</span>
+        <span class="pill">💡 Creatividad guiada</span>
+        <span class="pill">❤️ Tiempo en familia</span>
+      </div>
+      <div class="hero-btns">
+        <a href="#products" class="btn-primary">Ver productos</a>
+        <a href="#contact" class="btn-secondary">Contáctanos</a>
+      </div>
     </div>
-
-    <!-- FOOTER -->
-    <footer class="footer reveal">
-    <div class="contenedor-footer">
-        <div class="footer-col">
-        <h4>Contacto</h4>
-        <p><i class="fas fa-phone-alt"></i> <a href="https://wa.me/573014894222" target="_blank">301 489 4222</a></p>
-        <p><i class="fas fa-envelope"></i> <a href="mailto:pequenosPicassos2022@gmail.com">pequenosPicassos2022@gmail.com</a></p>
-        </div>
-        <div class="footer-col">
-        <h4>Ubicación</h4>
-        <p><i class="fas fa-map-marker-alt"></i> Pereira</p>
-        <p>Centro Comercial Arboleda</p>
-        <p>Piso 4</p>
-        </div>
-        <div class="footer-col">
-        <h4>Hablemos</h4>
-        <p>¿Tienes preguntas o quieres inscribir a tu peque?</p>
-        <a href="https://wa.me/573014894222" class="footer-whatsapp" target="_blank">
-            <i class="fab fa-whatsapp"></i> Escríbenos por WhatsApp
-        </a>
-        </div>
+    <div class="hero-visual reveal">
+      <div class="hero-video-wrap">
+        <video src="video/pexels-artem.mp4" autoplay muted loop playsinline></video>
+      </div>
+      <div class="hero-badge">🎉 ¡Para toda la familia!</div>
+      <div class="hero-badge2">⭐ Pereira, CC Arboleda</div>
     </div>
+  </div>
+</section>
 
-    <div class="footer-bottom">
-        <p>&copy; 2022 – Pequeños Picassos · Mauricio Sánchez Abella</p>
+<!-- WAVE -->
+<div class="wave-divider" style="background:var(--dark);line-height:0">
+  <svg viewBox="0 0 1200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:80px;display:block;">
+    <path d="M0,40 C300,80 900,0 1200,40 L1200,80 L0,80 Z" fill="#FFFBF2"/>
+  </svg>
+</div>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-head reveal">
+      <span class="section-label">¿Por qué elegirnos?</span>
+      <h2 class="section-title">Desarrollamos potencial con el arte</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,.65)">Tres pilares que fortalecemos en cada actividad y producto.</p>
     </div>
-    </footer>
+    <div class="benefit-grid">
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">✋</div>
+        <h3>Motricidad fina</h3>
+        <p>Recorte, modelado y pintura que afina el control de manos y dedos en cada actividad.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">💡</div>
+        <h3>Creatividad guiada</h3>
+        <p>Retos acompañados para imaginar, resolver y expresar ideas propias con confianza.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">❤️</div>
+        <h3>Tiempo en familia</h3>
+        <p>Proyectos para compartir en casa que fortalecen la comunicación y el vínculo afectivo.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <a class="whatsapp-float" href="https://wa.me/573014894222" target="_blank" rel="noopener noreferrer"
-        aria-label="WhatsApp Pequeños Picassos">
-        <i class="fab fa-whatsapp"></i>
-        <span>WhatsApp</span>
-    </a>
+<!-- WAVE 2 -->
+<div style="background:var(--dark);line-height:0">
+  <svg viewBox="0 0 1200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:80px;display:block;">
+    <path d="M0,40 C400,0 800,80 1200,40 L1200,80 L0,80 Z" fill="#fff"/>
+  </svg>
+</div>
 
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.pkgd.js"></script>
-    <script src="script.js"></script>
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-img reveal">
+      <img src="img/Slider (22).jpg" alt="Taller creativo con niños" loading="lazy">
+      <div class="about-img-badge">🏆 Desde 2022</div>
+    </div>
+    <div>
+      <div class="section-head reveal">
+        <span class="section-label">Acerca de nosotros</span>
+        <h2 class="section-title">Productos pensados para crecer</h2>
+        <p class="section-sub">Creamos experiencias que unen el aprendizaje con la diversión, acompañando a niños y padres en cada etapa.</p>
+      </div>
+      <div class="about-steps">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <div>
+            <h4>Productos pensados</h4>
+            <p>Desarrollan habilidades motrices y mentales estimulando el intelecto, coordinación e iniciativa; también los disfrutan los padres.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">2</div>
+          <div>
+            <h4>Materiales seguros</h4>
+            <p>Resistentes y sin peligro para los pequeños. Su compañía en cada actividad es siempre nuestra prioridad.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">3</div>
+          <div>
+            <h4>Guía por edad</h4>
+            <p>Acompañamos cada actividad con recomendaciones específicas según la edad y etapa de desarrollo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-head reveal">
+      <span class="section-label">Galería</span>
+      <h2 class="section-title">Arte y diversión en acción</h2>
+      <p class="section-sub">Momentos reales de juego, pintura y creatividad con nuestros pequeños.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="img/glid_5.jpeg" alt="Niños creando arte" loading="lazy">
+        <div class="gallery-overlay"><span>Pequeños Picassos</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="img/glid_13.jpeg" alt="Actividad creativa" loading="lazy">
+        <div class="gallery-overlay"><span>Entretenimiento</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="img/glid_12.jpeg" alt="Pintura en taller" loading="lazy">
+        <div class="gallery-overlay"><span>Arte</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="img/glid_11.jpeg" alt="Diversión creativa" loading="lazy">
+        <div class="gallery-overlay"><span>Diversión</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="img/glid_3.jpeg" alt="Pintura y colores" loading="lazy">
+        <div class="gallery-overlay"><span>Pintura</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="img/glid_1.jpeg" alt="Arte en familia" loading="lazy">
+        <div class="gallery-overlay"><span>Familia</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="img/glid_4.jpeg" alt="Juego creativo" loading="lazy">
+        <div class="gallery-overlay"><span>Juego</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="img/glid_9.jpeg" alt="Taller de arte" loading="lazy">
+        <div class="gallery-overlay"><span>Taller</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="img/glid_7.jpeg" alt="Pintura creativa" loading="lazy">
+        <div class="gallery-overlay"><span>Creatividad</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-head reveal">
+      <span class="section-label">Portafolio</span>
+      <h2 class="section-title">Nuestros productos</h2>
+      <p class="section-sub">Seguros, resistentes y pensados para desarrollar habilidades únicas.</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal"><img src="img/marvel.jpg" alt="Figuras Marvel" loading="lazy"><div class="product-card-body"><p>Figuras Marvel</p></div></div>
+      <div class="product-card reveal"><img src="img/hombre_arana.jpg" alt="Figuras Hombre Araña" loading="lazy"><div class="product-card-body"><p>Hombre Araña</p></div></div>
+      <div class="product-card reveal"><img src="img/PLASTILINA2.jpg" alt="Plastilina" loading="lazy"><div class="product-card-body"><p>Plastilina</p></div></div>
+      <div class="product-card reveal"><img src="img/RELOJ_1.jpg" alt="Reloj didáctico" loading="lazy"><div class="product-card-body"><p>Reloj Didáctico</p></div></div>
+      <div class="product-card reveal"><img src="img/huevos.jpg" alt="Huevo sorpresa" loading="lazy"><div class="product-card-body"><p>Huevo Sorpresa</p></div></div>
+      <div class="product-card reveal"><img src="img/PINTURA ACUARELA.jpg" alt="Acuarela" loading="lazy"><div class="product-card-body"><p>Acuarela</p></div></div>
+      <div class="product-card reveal"><img src="img/PRODUCTOS (2).jpg" alt="Dominó" loading="lazy"><div class="product-card-body"><p>Dominó</p></div></div>
+      <div class="product-card reveal"><img src="img/SLIME.jpeg" alt="Slime" loading="lazy"><div class="product-card-body"><p>Slime</p></div></div>
+      <div class="product-card reveal"><img src="img/PROYECTORES PARA DIBUJAR.jpg" alt="Proyector" loading="lazy"><div class="product-card-body"><p>Proyector Dibujo</p></div></div>
+      <div class="product-card reveal"><img src="img/TETRIS JUEGO DIDACTICO.jpg" alt="Tetris" loading="lazy"><div class="product-card-body"><p>Tetris Didáctico</p></div></div>
+      <div class="product-card reveal"><img src="img/Slider (30).jpeg" alt="Figuras plastilina" loading="lazy"><div class="product-card-body"><p>Figuras Plastilina</p></div></div>
+      <div class="product-card reveal"><img src="img/TABLETA MAGICA PARA PINTAR Y APRENDER.jpg" alt="Tableta mágica" loading="lazy"><div class="product-card-body"><p>Tableta Mágica</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-head reveal" style="text-align:center;">
+      <span class="section-label">Testimonios</span>
+      <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+      <p class="section-sub" style="margin:0 auto;">Historias reales que nos inspiran a seguir creando cada día.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <p>Desarrollo de las capacidades creativas en los niños, de motricidad y cognitivas de los diferentes colores para lograr una armonía en el dibujo, también desarrollar destrezas para combinar estilos.</p>
+        <div class="testi-author">
+          <img src="img/CLIENTE1.jpg" alt="Angélica">
+          <div>
+            <strong>Angélica</strong><br>
+            <span>Mamá feliz ⭐⭐⭐⭐⭐</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <p>Al estar en contacto con más niños, permite la interacción con los demás logrando así una interrelación con sus compañeros. Integran conocimientos y técnicas que enriquecen su desarrollo.</p>
+        <div class="testi-author">
+          <img src="img/CLIENTE2.jpg" alt="Samira">
+          <div>
+            <strong>Samira</strong><br>
+            <span>Mamá feliz ⭐⭐⭐⭐⭐</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-head reveal">
+      <span class="section-label">Lo que ofrecemos</span>
+      <h2 class="section-title">Nuestros servicios</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,.7)">Actividades diseñadas para aprender jugando y crecer en familia.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <img src="img/imagen_20.png" alt="Entretenimiento" loading="lazy">
+        <div class="service-card-body">
+          <h3>🎭 Entretenimiento</h3>
+          <p>Brindamos opciones que desarrollan cualidades artísticas como pintura y dibujo de manera lúdica.</p>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <img src="img/ROMPECABEZAS-JUEGOS DIDACTICOS.jpg" alt="Productos Didácticos" loading="lazy">
+        <div class="service-card-body">
+          <h3>🧩 Productos Didácticos</h3>
+          <p>Más que juguetes: productos que motivan la mente y la destreza motriz con razonamiento y coordinación.</p>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <img src="img/familiar_1.jpg" alt="Participación familiar" loading="lazy">
+        <div class="service-card-body">
+          <h3>👨‍👩‍👧 Participación familiar</h3>
+          <p>Actividades donde los padres se involucran directamente, fortaleciendo la confianza de los pequeños.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div style="max-width:1000px;margin:0 auto;">
+    <div class="section-head reveal" style="text-align:center;">
+      <span class="section-label">Contáctanos</span>
+      <h2 class="section-title">¡Hablemos!</h2>
+      <p class="section-sub" style="margin:0 auto .5rem;">Estamos en Pereira para atenderte con gusto.</p>
+    </div>
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <h3>Información de contacto</h3>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div>
+            <strong>Teléfono / WhatsApp</strong><br>
+            <a href="https://wa.me/573014894222" style="color:var(--teal);font-weight:700">301 489 4222</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon" style="background:var(--teal)"><i class="fas fa-envelope"></i></div>
+          <div>
+            <strong>Correo</strong><br>
+            <a href="mailto:pequenosPicassos2022@gmail.com" style="color:var(--mid);font-size:.88rem">pequenosPicassos2022@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon" style="background:var(--dark)"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <strong>Ubicación</strong><br>
+            <span style="color:var(--mid)">CC Parque Arboleda, Piso 4 · Pereira</span>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="https://www.facebook.com/Peque%C3%B1os-Picassos-Pereira-108755635014231" class="social-btn social-fb" target="_blank" rel="noopener">
+            <i class="fab fa-facebook-f"></i> Facebook
+          </a>
+          <a href="https://www.instagram.com/pequenospicassosofficial" class="social-btn social-ig" target="_blank" rel="noopener">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+          <a href="https://youtube.com/shorts/wQZMjwd7fZw" class="social-btn social-yt" target="_blank" rel="noopener">
+            <i class="fab fa-youtube"></i> YouTube
+          </a>
+          <a href="https://wa.me/573014894222" class="social-btn social-wa" target="_blank" rel="noopener">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="contact-map reveal">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d993.9459650489804!2d-75.68395649173092!3d4.8071349390394795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e38873c119cbc4b%3A0x71bb3a3f6879aed3!2sCentro%20Comercial%20Parque%20Arboleda!5e0!3m2!1ses-419!2sco!4v1663537195923!5m2!1ses-419!2sco"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <div class="map-caption">
+          <i class="fas fa-map-marker-alt"></i>
+          Centro Comercial Parque Arboleda · Piso 4 · Pereira, Risaralda
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>🎨 Pequeños Picassos</h3>
+      <p>Arte y diversión para toda la familia en Pereira. Desarrollamos creatividad, motricidad y tiempo de calidad juntos.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="#gallery">Galería</a></li>
+        <li><a href="#about">Acerca</a></li>
+        <li><a href="#products">Productos</a></li>
+        <li><a href="#services">Servicios</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="tel:+573014894222">301 489 4222</a></li>
+        <li><a href="mailto:pequenosPicassos2022@gmail.com">Email</a></li>
+        <li>CC Arboleda, Piso 4</li>
+        <li>Pereira, Risaralda</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>¿Tienes preguntas?</h4>
+      <p style="font-size:.85rem;margin-bottom:.5rem">Escríbenos y te respondemos lo antes posible.</p>
+      <a href="https://wa.me/573014894222" class="footer-wa" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 · Pequeños Picassos · Mauricio Sánchez Abella · Pereira, Colombia</p>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/573014894222" class="float-wa" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const s = document.documentElement;
+    const pct = (s.scrollTop / (s.scrollHeight - s.clientHeight)) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  });
+
+  // Hamburger menu
+  const ham = document.getElementById('hamburger');
+  const navL = document.getElementById('navLinks');
+  ham.addEventListener('click', () => navL.classList.toggle('open'));
+  navL.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navL.classList.remove('open')));
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => io.observe(r));
+</script>
 </body>
-
 </html>
-
-
-
